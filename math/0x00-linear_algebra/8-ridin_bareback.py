@@ -12,7 +12,7 @@ def mat_mul(mat1, mat2):
     lines1, lines2 = len(mat1), len(mat2)
     rows1, rows2 = len(mat1[0]), len(mat2[0])
 
-    if lines1 != rows2 and lines2 != rows1:
+    if lines1 != rows2 or lines2 != rows1:
         return None
     else:
         new = [[0 for i in range(rows2)] for j in range(lines1)]
