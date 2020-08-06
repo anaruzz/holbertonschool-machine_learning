@@ -9,12 +9,11 @@ def cat_matrices2D(mat1, mat2, axis=0):
     function that concatenates two matrices
     """
     if axis == 0 and len(mat1[0]) == len(mat2[0]):
-            m = mat1 + mat2
-            return(m)
+            return mat1 + mat2
     elif axis == 1 and len(mat1) == len(mat2):
-            n = []
+            new = []
             for i in range(len(mat1)):
-                n.append(mat1[i] + mat2[i])
-            return(n)
+                new.append(mat1[i] + mat2[i])
+            return(new)
     else:
             return(None)
