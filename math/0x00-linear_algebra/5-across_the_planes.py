@@ -2,7 +2,6 @@
 matrix_shape = __import__('2-size_me_please').matrix_shape
 
 def add_matrices2D(mat1, mat2):
-    a = len(mat1[0])
     if matrix_shape(mat1) == matrix_shape(mat2):
         new = []
         for i in range(len(mat1)):
