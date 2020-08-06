@@ -2,7 +2,6 @@
 """
 Script that concatenates two matrices
 """
-import numpy as np
 
 
 def np_shape(matrix):
