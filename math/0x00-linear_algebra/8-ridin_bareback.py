@@ -9,15 +9,11 @@ def mat_mul(mat1, mat2):
     function that multiplies two matrices
     """
 
-    lines1 = len(mat1)
-    rows1 = len(mat1[0])
-    lines2 = len(mat2)
-    rows2 = len(mat2[0])
+    lines1, lines2 = len(mat1), len(mat2)
+    rows1, rows2 = len(mat1[0]), len(mat2[0])
 
     if lines1 != rows2 and lines2 != rows1:
         return None
-    elif lines1 == rows2:
-        new = [[0 for i in range(rows1)] for j in range(lines2)]
     else:
         new = [[0 for i in range(rows2)] for j in range(lines1)]
     for i in range(len(mat1)):
