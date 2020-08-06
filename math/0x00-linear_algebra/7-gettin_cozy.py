@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-Script that adds two matrices element wise
+Script that concatenates two matrices
 """
 
 
 def cat_matrices2D(mat1, mat2, axis=0):
     """
-    function that adds two matrices element wise
+    function that concatenates two matrices
     """
     if axis == 0 and len(mat1[0]) == len(mat2[0]):
             m = mat1 + mat2
