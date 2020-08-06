@@ -3,6 +3,10 @@
 
 
 def matrix_shape(matrix):
+    """
+    Function that calculates the shape
+    of a matrix
+    """
     size = [len(matrix)]
     while type(matrix[0]) is list:
         size.append(len(matrix[0]))
