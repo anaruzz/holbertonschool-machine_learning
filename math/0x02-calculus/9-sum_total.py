@@ -8,7 +8,7 @@ def summation_i_squared(n):
     """
     sum if i² from 1 to n
     """
-    if type(n) is not int or n < 1:
+    if type(n) is not int:
         return None
     if n == 1:
         return 1
