@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-# Script that does the summation function of i²
-
+"""
+ Script that does the summation function of i²
+"""
 
 def summation_i_squared(n):
     """
