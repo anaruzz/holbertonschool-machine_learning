@@ -15,4 +15,6 @@ def poly_derivative(poly):
         new.append(i * poly[i])
     while new[len(new)-1] == 0:
         new.pop()
+    if len(new) == 0:
+        new = [0]
     return new
