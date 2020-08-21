@@ -12,7 +12,7 @@ def poly_integral(poly, C=0):
         return None
     if type(C) is not int and type(C) is not float:
         return None
-    if len(poly) == 1:
+    if len(poly) == 1 and poly[0] == 0:
         return [C]
     new = [C]
     for i in range(len(poly)):
