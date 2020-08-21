@@ -10,12 +10,15 @@ def poly_integral(poly, C=0):
     """
     if type(poly) is not list or len(poly) == 0:
         return None
-    if type(C) is not int:
+    if type(C) is not int and type(C) is not float:
         return None
     if len(poly) == 1:
-        return [0]
-    new = [0, poly[0]]
-    for i in range(1, len(poly)):
+        return [C]
+    new = [C]
+    for i in range(len(poly)):
         p = (poly[i] / (i + 1))
-        new.append(p)
+        if p == int(p):
+            new.append(int(p))
+        else:
+            new.append(p)
     return new
