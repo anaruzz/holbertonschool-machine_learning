@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
-""" doc """
+"""
+Script that calculates the derivative of a polynomial
+"""
 
 
 def poly_derivative(poly):
-    """ doc """
-    if len(poly) == 0 or type(poly) != list:
-        return None
+    """
+    function that does derivative
+    """
 
-    drv = []
+    if type(poly) is not list or len(poly) == 0:
+        return None
+    new = []
     if len(poly) == 1:
         return [0]
     for i in range(1, len(poly)):
-        drv.append(poly[i] * i)
-
-    return drv
+        new.append(i * poly[i])
+    return new
