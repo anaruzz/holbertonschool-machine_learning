@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-# Script that represents Poisson distribution
+""" Script that represents Poisson distribution"""
 
 
-class Poisson:
+class Poisson():
     """
     class Poisson to represent poisson distribution
     """
