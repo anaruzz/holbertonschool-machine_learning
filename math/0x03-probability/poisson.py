@@ -22,6 +22,9 @@ class Poisson():
             self.lambtha = sum(data)/len(data)
 
     def pmf(self, k):
+        """
+        Calculate pmf of poisson distribution
+        """
         if type(k) is not int:
             k = int(k)
         if k < 0:
