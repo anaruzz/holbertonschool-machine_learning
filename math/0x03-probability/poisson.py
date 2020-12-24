@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # Script that represents Poisson distribution
 
+
 class Poisson:
     """
     class Poisson to represent poisson distribution
@@ -12,7 +13,7 @@ class Poisson:
         if data is None:
             if lambtha < 0:
                 raise ValueError("lambtha must be a positive value")
-            self.lambtha = lambtha
+            self.lambtha = float(lambtha)
         else:
             if type(data) is not list:
                 raise TypeError('data must be a list')
