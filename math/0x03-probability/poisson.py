@@ -38,14 +38,11 @@ class Poisson():
         """
         cumulative distribution function of poisson distribution
         """
-        try:
-            if type(k) is not int:
-                k = int(k)
-            if k < 0:
-                return 0
-            cdf = 0
-            for i in range(0, k+1):
-                cdf += self.pmf(i)
-            return cdf
-        except Exception:
+        if type(k) is not int:
+            k = int(k)
+        if k < 0:
             return 0
+        cdf = 0
+        for i in range(0, k+1):
+            cdf += self.pmf(i)
+        return cdf
