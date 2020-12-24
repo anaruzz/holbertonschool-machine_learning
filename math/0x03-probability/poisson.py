@@ -23,7 +23,7 @@ class Poisson():
 
     def pmf(self, k):
         """
-        Calculate pmf of poisson distribution
+        probability mass function of poisson distribution
         """
         if type(k) is not int:
             k = int(k)
@@ -33,3 +33,16 @@ class Poisson():
         for i in range(1, k+1):
             fct = fct * i
         return (self.lambtha ** k * 2.7182818285 ** (- self.lambtha)) / fct
+
+    def cdf(self, k):
+        """
+        cumulative distribution function of poisson distribution
+        """
+        if type(k) is not int:
+            k = int(k)
+        if k < 0:
+            return 0
+        cdf = 0
+        for i in range(1, k+1):
+            cdf += self.pmf(i)
+        return cdf
