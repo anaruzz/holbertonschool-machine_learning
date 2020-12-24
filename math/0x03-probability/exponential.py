@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-""" Script that represents Poisson distribution"""
+""" Script that represents Exponontial distribution"""
 
 
 class Exponential():
     """
-    class Exponontial to represent poisson distribution
+    class Exponontial to represent Exponontial distribution
     """
     def __init__(self, data=None, lambtha=1.):
         """
