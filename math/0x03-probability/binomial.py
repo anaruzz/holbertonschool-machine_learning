@@ -56,6 +56,9 @@ class Binomial():
             return 0
 
     def cdf(self, k):
+        """
+        cdf of binomial distribution
+        """
         if k < 0:
             return 0
         k = int(k)
