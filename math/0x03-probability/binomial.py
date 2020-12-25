@@ -47,7 +47,9 @@ class Binomial():
         """
         if k < 0:
             return 0
-        k = int(k)
-        a = self.n - k
-        nk = self.fact(self.n) / (self.fact(k) * (self.fact(a)))
-        return nk * (self.p**k * ((1 - self.p) ** (self.n - k)))
+        try:
+            a = self.n - k
+            nk = self.fact(self.n) / (self.fact(k) * (self.fact(a)))
+            return nk * (self.p**k * ((1 - self.p) ** (self.n - k)))
+        except Exception as e:
+            return 0
