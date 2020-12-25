@@ -54,3 +54,13 @@ class Binomial():
             return nk * (self.p**k * ((1 - self.p) ** (self.n - k)))
         except Exception:
             return 0
+
+    def cdf(self, k):
+        if k < 0:
+            return 0
+        if type(k) is not int:
+            k = int(k)
+        cdf = 0
+        for i in range(1, k+1):
+            cdf += self.pmf(i)
+        return cdf
