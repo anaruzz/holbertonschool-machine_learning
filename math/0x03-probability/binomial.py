@@ -31,3 +31,20 @@ class Binomial():
             n = round((m ** 2) / (m - (s / len(data))))
             self.n = n
             self.p = m / n
+
+    def fact(self, n):
+        """
+        calculate factorial
+        """
+        f = 1
+        for i in range(1, n+1):
+            f = f * i
+        return f
+
+    def pmf(self, k):
+        """
+        calculate pmf of binomial distribution
+        """
+        a = self.n - k
+        nk = self.fact(self.n) / (self.fact(k) * (self.fact(a)))
+        return nk * (self.p**k * ((1 - self.p) ** (self.n - k)))
