@@ -46,3 +46,13 @@ class Normal():
         b = 2 * self.stddev ** 2
         c = self.stddev * ((2 * 3.1415926536) ** 0.5)
         return (2.7182818285 ** (a / b)) / c
+
+    def er(self, x):
+        """calculate er function"""
+        return (x - ((x ** 3) / 3) + ((x ** 5) / 10) - ((x ** 7) / 42) +
+                ((x ** 9) / 216)) * (2 / 3.1415926536 ** (0.5))
+
+    def cdf(self, x):
+        """cumilative density function for normal distribution"""
+        a = (1 + self.er((x - self.mean) / (self.stddev * (2 ** (0.5)))))
+        return 0.5 * a
