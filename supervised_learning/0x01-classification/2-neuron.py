@@ -35,5 +35,13 @@ class Neuron():
     def A(self):
         return self.__A
 
+    def sigmoid(self, z):
+        """
+        sigmoid activation fuction
+        """
+        return (1 / (1 + np.exp(-z)))
+
     def forward_prop(self, X):
-        
+        z = np.dot(self.__W, X) + self.b
+        self.__A = self.sigmoid(z)
+        return self.__A
