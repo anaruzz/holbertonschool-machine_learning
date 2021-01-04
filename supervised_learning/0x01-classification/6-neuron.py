@@ -78,6 +78,9 @@ class Neuron():
         self.__W -= alpha * weight_deriv.T
 
     def train(self, X, Y, iterations=5000, alpha=0.05):
+        """
+        Trains the neuron
+        """
         if type(iterations) is not int:
             raise TypeError('iterations must be an integer')
         if iterations < 0:
