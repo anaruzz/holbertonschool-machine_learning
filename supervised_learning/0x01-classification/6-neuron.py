@@ -63,18 +63,18 @@ class Neuron():
         """
         self.__A = self.forward_prop(X)
         cost = self.cost(Y, self.__A)
-        prediction = np.where(self.__A >= 0.5, 1, 0)
-        return (prediction, cost)
+        A = np.where(self.__A >= 0.5, 1, 0)
+        return (A, cost)
 
     def gradient_descent(self, X, Y, A, alpha=0.05):
         """
         Calculates one pass of gradient descent on the neuron
         """
         # Update bias
-        self.__b -= - (alpha * np.mean(A - Y))
+        self.__b = self.__b - (alpha * np.mean(A - Y))
         # Update weight
         m = Y.shape[1]
-        weight_deriv = np.matmul(X, (A - Y).T) / m
+        weight_deriv = np.matmul(X, (A-Y).T) / m
         self.__W -= alpha * weight_deriv.T
 
     def train(self, X, Y, iterations=5000, alpha=0.05):
