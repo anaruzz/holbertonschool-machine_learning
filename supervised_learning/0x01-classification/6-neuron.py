@@ -70,12 +70,10 @@ class Neuron():
         """
         Calculates one pass of gradient descent on the neuron
         """
-        # Update bias
-        self.__b = self.__b - (alpha * np.mean(A - Y))
-        # Update weight
-        m = Y.shape[1]
-        weight_deriv = np.matmul(X, (A-Y).T) / m
-        self.__W -= alpha * weight_deriv.T
+        m = len(Y[0])
+        grad = np.matmul(X, (A - Y).T) / m
+        self.__W -= alpha * grad.T
+        self.__b -= alpha * np.average(A - Y)
 
     def train(self, X, Y, iterations=5000, alpha=0.05):
         """
