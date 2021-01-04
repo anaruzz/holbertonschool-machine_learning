@@ -74,7 +74,7 @@ class Neuron():
         self.__b = self.__b - (alpha * np.mean(A - Y))
         # Update weight
         m = Y.shape[1]
-        weight_deriv = np.matmul(X, (A-Y).T) / m
+        weight_deriv = np.matmul(X, (A - Y).T) / m
         self.__W -= alpha * weight_deriv.T
 
     def train(self, X, Y, iterations=5000, alpha=0.05):
