@@ -73,7 +73,6 @@ class Neuron():
         # Update bias
         self.__b = self.__b - (alpha * np.mean(A - Y))
         # Update weight
-        m = X.shape[1]
-        input_transpose = X.T
-        weight_deriv = np.matmul((A-Y), input_transpose) / m
-        self.__W = alpha - weight_deriv.T
+        m = Y.shape[1]
+        weight_deriv = np.matmul(X, (A-Y).T) / m
+        self.__W -= alpha * weight_deriv.T
