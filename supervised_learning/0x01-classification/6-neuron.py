@@ -61,7 +61,7 @@ class Neuron():
         """
         Evaluates the neuron's predictions
         """
-        self.forward_prop(X)
+        self.__A = self.forward_prop(X)
         cost = self.cost(Y, self.__A)
         prediction = np.where(self.__A >= 0.5, 1, 0)
         return (prediction, cost)
