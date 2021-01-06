@@ -77,7 +77,7 @@ class NeuralNetwork():
         """
         Calculates the cost of the model with logistic regression
         """
-        m = A.shape[1]
+        m = Y.shape[1]
         error = (-Y * np.log(A)) - ((1 - Y) * np.log(1.0000001 - A))
         return 1 / m * np.sum(error)
 
@@ -85,7 +85,7 @@ class NeuralNetwork():
         """
         Evaluates the neural network's predictions
         """
-        A = self.forward_prop(X)
-        cost = self.cost(Y, A)
-        self.__A = np.where(A >= 0.5, 1, 0)
-        return (self.__A, cost)
+        self.__A2 = self.forward_prop(X)
+        cost = self.cost(Y, self.__A2)
+        self.__A2 = np.where(self.__A2 >= 0.5, 1, 0)
+        return (self.__A2, cost)
