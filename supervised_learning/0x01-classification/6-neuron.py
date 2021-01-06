@@ -61,9 +61,10 @@ class Neuron():
         """
         Evaluates the neuron's predictions
         """
-        self.forward_prop(X)
-        prediction = np.where(self.A >= 0.5, 1, 0)
-        return prediction, self.cost(Y, self.A)
+        self.__A = self.forward_prop(X)
+        cost = self.cost(Y, self.__A)
+        A = np.where(self.__A >= 0.5, 1, 0)
+        return (A, cost)
 
     def gradient_descent(self, X, Y, A, alpha=0.05):
         """
@@ -83,7 +84,7 @@ class Neuron():
         if type(iterations) is not int:
             raise TypeError('iterations must be an integer')
         if iterations <= 0:
-            raise ValueError('iterations must be positive')
+            raise ValueError('iterations must be a positive integer')
         if type(alpha) is not float:
             raise TypeError('alpha must be a float')
         if alpha <= 0:
