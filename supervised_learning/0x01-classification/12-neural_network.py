@@ -81,4 +81,11 @@ class NeuralNetwork():
         error = (-Y * np.log(A)) - ((1 - Y) * np.log(1.0000001 - A))
         return 1 / m * np.sum(error)
 
-    
+    def evaluate(self, X, Y):
+        """
+        Evaluates the neural network's predictions
+        """
+        A = self.forward_prop(X)
+        cost = self.cost(Y, A)
+        self.__A = np.where(A >= 0.5, 1, 0)
+        return (self.__A, cost)
