@@ -29,7 +29,7 @@ class NeuralNetwork():
         self.__W1 = np.random.randn(nodes, self.nx)
         self.__b1 = np.zeros((nodes, 1))
         self.__A1 = 0
-        self.__W2 = np.random.normal(size=(1, nodes))
+        self.__W2 = np.random.randn(1, nodes)
         self.__b2 = 0
         self.__A2 = 0
 
@@ -69,6 +69,6 @@ class NeuralNetwork():
         """
         z1 = np.dot(self.__W1, X) + self.__b1
         self.__A1 = self.sigmoid(z1)
-        z2 = np.dot(self.__W2, X) + self.__b2
+        z2 = np.dot(self.__W2, self.__A1) + self.__b2
         self.__A2 = self.sigmoid(z2)
         return self.__A1, self.__A2
