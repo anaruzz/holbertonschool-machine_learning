@@ -85,7 +85,7 @@ class NeuralNetwork():
         """
         Evaluates the neural network's predictions
         """
-        self.__A2 = self.forward_prop(X)
+        _, self.__A2 = self.forward_prop(X)
         cost = self.cost(Y, self.__A2)
         self.__A2 = np.where(self.__A2 >= 0.5, 1, 0)
         return (self.__A2, cost)
