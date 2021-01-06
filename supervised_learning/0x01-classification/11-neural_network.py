@@ -80,5 +80,3 @@ class NeuralNetwork():
         m = A.shape[1]
         error = (-Y * np.log(A)) - ((1 - Y) * np.log(1.0000001 - A))
         return 1 / m * np.sum(error)
-
-    
