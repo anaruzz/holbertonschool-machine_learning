@@ -12,8 +12,6 @@ def one_hot_encode(Y, classes):
     vector into a one-hot matrix
     """
     try:
-        # b = np.zeros((Y.size, classes))
-        # b[np.arange(Y.size), Y] = 1
         if Y is None or type(Y) is not np.ndarray\
                 or type(classes) is not int:
             return None
