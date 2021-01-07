@@ -19,17 +19,18 @@ class DeepNeuralNetwork():
             raise TypeError('layers must be a list of positive integers')
         if not all(map(lambda b: b > 0 and type(b) is int, layers)):
             raise TypeError("layers must be a list of positive integers")
-        # if not all(map(lambda x: x > 0 and isinstance(x, int), layers)):
-        #     raise TypeError('layers must be a list of positive integers')
         self.nx = nx
         self.layers = layers
         self.L = len(layers)
         self.cache = {}
         self.weights = {}
         for i in range(self.L):
+            if i == 0:
+                m = self.nx
+            else:
+                m = layers[i - 1]
             nW = 'W' + str(i + 1)
             n = layers[i]
-            m = layers[i - 1]
             self.weights[nW] = np.random.normal(size=(n, m)) * np.sqrt(2 / n)
             nb = 'b' + str(i + 1)
             self.weights[nb] = np.zeros((n, 1))
