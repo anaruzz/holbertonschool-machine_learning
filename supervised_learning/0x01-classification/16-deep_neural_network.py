@@ -27,6 +27,7 @@ class DeepNeuralNetwork():
         for i in range(self.L):
             nW = 'W' + str(i + 1)
             n = layers[i]
-            self.weights[nW] = np.random.normal(size=(n, layers[i - 1]))
+            m = layers[i - 1]
+            self.weights[nW] = np.random.normal(size=(n, m)) * np.sqrt(2 / n)
             nb = 'b' + str(i + 1)
             self.weights[nb] = np.zeros((n, 1))
