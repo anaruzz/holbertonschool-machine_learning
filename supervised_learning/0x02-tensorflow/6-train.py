@@ -40,7 +40,7 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha, i
     with tf.Session() as sess:
         sess.run(init)
         for i in range(iterations + 1):
-             train_cost, train_accuracy = sess.run((loss, accuracy), {
+            train_cost, train_accuracy = sess.run((loss, accuracy), {
                 x: X_train,
                 y: Y_train
             })
