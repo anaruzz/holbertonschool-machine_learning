@@ -94,13 +94,15 @@ class NeuralNetwork():
         """
         Calculates one pass of gradient descent
         """
-        def gradient_descent(self, X, Y, A, alpha=0.05):
-            """
-            Calculates one pass of gradient descent on the neuron
-            """
-            # Update bias
-            self.__b = self.__b - (alpha * np.mean(A - Y))
-            # Update weight
-            m = Y.shape[1]
-            weight_deriv = np.matmul(X, (A-Y).T) / m
-            self.__W -= alpha * weight_deriv.T
+        m = Y.shape[1]
+        d_z2 = A2 - Y
+        d_w2 = np.matmul(d_z2, A1.T) * 1 / m
+        d_b2 = np.sum(d_z2, axis=1, keepdims=True) * 1 / m
+        d_A1 = A1 * (1 - A1)
+        d_z1 = np.matmul(self.__W2.T, d_z2) * d_A1
+        d_w1 = np.matmul(d_z1, X.T) * 1 / m
+        d_b1 = np.sum(d_z1, axis=1, keepdims=True) * 1 / m
+        self.__W1 = self.__W1 - d_w1 * alpha
+        self.__b1 = self.__b1 - d_b1 * alpha
+        self.__W2 = self.__W2 - d_w2 * alpha
+        self.__b2 = self.__b2 - d_b2 * alpha
