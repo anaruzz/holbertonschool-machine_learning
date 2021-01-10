@@ -40,14 +40,14 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha, i
     with tf.Session() as sess:
         sess.run(init)
         for i in range(iterations + 1):
-            train_cost, train_accuracy = sess.run(
-                [loss, accuracy],
-                feed_dict={x: X_train, y: Y_train}
-            )
-            valid_cost, valid_accuracy = sess.run(
-                [loss, accuracy],
-                feed_dict={x: X_valid, y: Y_valid}
-            )
+             train_cost, train_accuracy = sess.run((loss, accuracy), {
+                x: X_train,
+                y: Y_train
+            })
+            valid_cost, valid_accuracy = sess.run((accuracy, loss), {
+                x: X_valid,
+                y: Y_valid
+            })
             if i == 0 or i % 100 == 0 or i == iterations:
                 print("After {} iterations:".format(i))
                 print("\tTraining Cost: {}".format(train_cost))
