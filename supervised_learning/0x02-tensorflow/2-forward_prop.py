@@ -12,6 +12,7 @@ def forward_prop(x, layer_sizes=[], activations=[]):
     """
     Creates forward propagation for the neural network
     """
+    prediction = x
     for i in range(len(layer_sizes)):
-        prediction = create_layer(x, layer_sizes[i], activations[i])
+        prediction = create_layer(prediction, layer_sizes[i], activations[i])
     return prediction
