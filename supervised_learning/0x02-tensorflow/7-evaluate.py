@@ -17,5 +17,6 @@ def evaluate(X, Y, save_path):
     accuracy = tf.get_collection('accuracy', scope=None)[0]
     x = tf.get_collection('x', scope=None)[0]
     y = tf.get_collection('y', scope=None)[0]
-    y_pred, accuracy, loss = sess.run((y_pred, accuracy, loss), feed_dict={x: X, y: Y})
+    y_pred, accuracy, loss = sess.run((y_pred, accuracy, loss),
+                                      feed_dict={x: X, y: Y})
     return y_pred, accuracy, loss
