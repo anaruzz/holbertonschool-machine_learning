@@ -47,4 +47,4 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations,
                 print("\tValidation Accuracy: {}".format(valid_accuracy))
             if i is not iterations:
                 sess.run(train_op, feed_dict={x: X_train, y: Y_train})
-        return saver.save(session, save_path)
+        return saver.save(sess, save_path)
