@@ -32,9 +32,9 @@ def train_mini_batch(X_train, Y_train, X_valid,
         loss = tf.get_collection('loss')[0]
         accuracy = tf.get_collection('accuracy')[0]
         for ep in range(epochs+1):
-            train_loss, train_accuracy = sess.run((accuracy, loss),
+            train_loss, train_accuracy = sess.run((loss, accuracy),
                                                   {x: X_train, y: Y_train})
-            valid_loss, valid_accuracy = sess.run((accuracy, loss),
+            valid_loss, valid_accuracy = sess.run((loss, accuracy),
                                                   {x: X_valid, y: Y_valid})
             print("After {} epochs:".format(ep))
             print("\tTraining Cost: {}".format(train_loss))
