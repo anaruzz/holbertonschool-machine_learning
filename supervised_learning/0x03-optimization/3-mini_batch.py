@@ -3,15 +3,15 @@
 that trains a loaded neural network model using
 mini-batch gradient descent
 """
-import numpy as np
+
 import tensorflow as tf
 shuffle_data = __import__('2-shuffle_data').shuffle_data
 
 
 def train_mini_batch(X_train, Y_train, X_valid,
-                    Y_valid, batch_size=32,
-                    epochs=5, load_path="/tmp/model.ckpt",
-                    save_path="/tmp/model.ckpt"):
+                     Y_valid, batch_size=32,
+                     epochs=5, load_path="/tmp/model.ckpt",
+                     save_path="/tmp/model.ckpt"):
     """
     Train a neural network using mini batch GD
     """
@@ -33,8 +33,10 @@ def train_mini_batch(X_train, Y_train, X_valid,
         accuracy = tf.get_collection('accuracy')[0]
         for ep in range(epochs+1):
             X, Y = shuffle_data(X_train, Y_train)
-            train_loss, train_accuracy = sess.run((accuracy, loss), {x: X_train, y: Y_train})
-            valid_loss, valid_accuracy = sess.run((accuracy, loss), {x: X_valid, y: Y_valid})
+            train_loss, train_accuracy = sess.run((accuracy, loss),
+                                                  {x: X_train, y: Y_train})
+            valid_loss, valid_accuracy = sess.run((accuracy, loss),
+                                                  {x: X_valid, y: Y_valid})
             print("After {} epochs:".format(ep))
             print("\tTraining Cost: {}".format(train_loss))
             print("\tTraining Accuracy: {}".format(train_accuracy))
@@ -50,9 +52,10 @@ def train_mini_batch(X_train, Y_train, X_valid,
                     X_batch = X_shuffled[start:end]
                     Y_batch = Y_shuffled[start:end]
                     sess.run((train_op), {x: X_batch,
-                                             y: Y_batch})
+                                          y: Y_batch})
                     batch_cost, batch_accuracy = sess.run((loss, accuracy),
-                                                            {x: X_batch, y: Y_batch})
+                                                          {x: X_batch,
+                                                           y: Y_batch})
                     if (b + 1) % 100 == 0 and b > 0:
                         print("\tStep {}:".format(b + 1))
                         print("\t\tCost: {}".format(batch_cost))
