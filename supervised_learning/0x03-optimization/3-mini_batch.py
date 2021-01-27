@@ -17,7 +17,11 @@ def train_mini_batch(X_train, Y_train, X_valid,
     """
     init = tf.global_variables_initializer()
     m = X_train.shape[0]
-    batches = int(m / batch_size)
+    batches = m / batch_size
+    if batches % 1 != 0:
+        batches = int(batches + 1)
+    else:
+        batches = int(batches)
     with tf.Session() as sess:
         sess.run(init)
         saver = tf.train.import_meta_graph("{}.meta".format(load_path))
