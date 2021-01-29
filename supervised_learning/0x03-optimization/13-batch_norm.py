@@ -10,7 +10,7 @@ def batch_norm(Z, gamma, beta, epsilon):
     """
     returns the updated Z matrix
     """
-    mean = np.mean(Z, axis=0)
-    var = np.var(Z)
+    mean = np.mean(Z)
+    var = np.var(Z - mean)
     Z_norm = (Z - mean) / ((var + epsilon) ** 0.5)
     return gamma * Z_norm + beta
