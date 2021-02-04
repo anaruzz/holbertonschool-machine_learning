@@ -21,15 +21,17 @@ def train_model(network, data, labels,
     Returns the history object generated after training
     """
     callback = []
-    if learning_rate_decay:
-        def LRD(step):
-            return alpha / (1 + decay_rate * step)
+
     if early_stopping:
         early_s = k.callbacks.EarlyStopping(monitor='val_loss',
                                             patience=patience,
                                             verbose=verbose)
         callback.append(early_s)
+
     if learning_rate_decay and validation_data:
+        def LRD(step):
+            return alpha / (1 + decay_rate * step)
+            
         decay = k.callbacks.LearningRateScheduler(LRD, verbose=1)
         callback.append(decay)
     if save_best:
