@@ -38,13 +38,22 @@ def train_model(network, data, labels,
     if save_best:
         best = k.callbacks.ModelCheckpoint(filepath)
         callbacks.append(best)
-    history = network.fit(x=data,
-                          y=labels,
-                          epochs=epochs,
-                          batch_size=batch_size,
-                          verbose=verbose,
-                          validation_data=validation_data,
-                          shuffle=shuffle,
-                          callbacks=callback
-                          )
+        history = network.fit(x=data,
+                              y=labels,
+                              epochs=epochs,
+                              batch_size=batch_size,
+                              verbose=verbose,
+                              validation_data=validation_data,
+                              shuffle=shuffle,
+                              callbacks=callbacks
+                              )
+    else:
+        history = network.fit(x=data,
+                              y=labels,
+                              epochs=epochs,
+                              batch_size=batch_size,
+                              verbose=verbose,
+                              validation_data=validation_data,
+                              shuffle=shuffle
+                              )
     return history
