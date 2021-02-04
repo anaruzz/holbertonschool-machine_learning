@@ -16,7 +16,9 @@ def train_model(network, data, labels,
     Returns the history object generated after training
     """
     if early_stopping:
-        callback = k.callbacks.EarlyStopping(monitor=patience=patience)
+        callback = k.callbacks.EarlyStopping(monitor='val_loss',
+                                             patience=patience,
+                                             verbose=verbose)
     else:
         callback = None
     history = network.fit(x=data,
