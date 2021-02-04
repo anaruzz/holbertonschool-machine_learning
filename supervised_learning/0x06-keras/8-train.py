@@ -20,23 +20,24 @@ def train_model(network, data, labels,
     """
     Returns the history object generated after training
     """
-    callback = []
+    callbacks = []
+
+    if learning_rate_decay:
+        def LRD(step):
+            return alpha / (1 + decay_rate * step)
+
+        decay = k.callbacks.LearningRateScheduler(LRD, verbose=1)
+        callbacks.append(decay)
 
     if early_stopping:
         early_s = k.callbacks.EarlyStopping(monitor='val_loss',
                                             patience=patience,
                                             verbose=verbose)
-        callback.append(early_s)
+        callbacks.append(early_s)
 
-    if learning_rate_decay and validation_data:
-        def LRD(step):
-            return alpha / (1 + decay_rate * step)
-            
-        decay = k.callbacks.LearningRateScheduler(LRD, verbose=1)
-        callback.append(decay)
     if save_best:
         best = k.callbacks.ModelCheckpoint(filepath)
-        callback.append(best)
+        callbacks.append(best)
     history = network.fit(x=data,
                           y=labels,
                           epochs=epochs,
