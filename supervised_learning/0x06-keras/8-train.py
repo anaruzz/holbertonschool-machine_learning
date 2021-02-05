@@ -22,9 +22,9 @@ def train_model(network, data, labels,
     """
     if validation_data:
         callbacks = []
-
-        def LRD(step):
-            return alpha / (1 + decay_rate * step)
+        if learning_rate_decay:
+            def LRD(step):
+                return alpha / (1 + decay_rate * step)
 
         if early_stopping:
             early_s = k.callbacks.EarlyStopping(monitor='val_loss',
@@ -39,6 +39,7 @@ def train_model(network, data, labels,
         if save_best:
             best = k.callbacks.ModelCheckpoint(filepath)
             callbacks.append(best)
+
         history = network.fit(x=data,
                               y=labels,
                               epochs=epochs,
@@ -57,4 +58,5 @@ def train_model(network, data, labels,
                               validation_data=validation_data,
                               shuffle=shuffle
                               )
+
     return history
