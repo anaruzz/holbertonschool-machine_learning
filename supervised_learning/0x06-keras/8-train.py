@@ -34,9 +34,10 @@ def train_model(network, data, labels,
                                                 verbose=verbose)
             callbacks.append(early_s)
 
-
         if save_best:
-            best = k.callbacks.ModelCheckpoint(filepath)
+            best = k.callbacks.ModelCheckpoint(filepath,
+                                               monitor="val_loss",
+                                               save_best_only=True)
             callbacks.append(best)
 
         history = network.fit(x=data,
