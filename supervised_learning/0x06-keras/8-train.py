@@ -25,6 +25,8 @@ def train_model(network, data, labels,
         if learning_rate_decay:
             def LRD(step):
                 return alpha / (1 + decay_rate * step)
+            decay = k.callbacks.LearningRateScheduler(LRD, verbose=1)
+            callbacks.append(decay)
 
         if early_stopping:
             early_s = k.callbacks.EarlyStopping(monitor='val_loss',
@@ -32,9 +34,6 @@ def train_model(network, data, labels,
                                                 verbose=verbose)
             callbacks.append(early_s)
 
-        if learning_rate_decay:
-            decay = k.callbacks.LearningRateScheduler(LRD, verbose=1)
-            callbacks.append(decay)
 
         if save_best:
             best = k.callbacks.ModelCheckpoint(filepath)
