@@ -12,7 +12,8 @@ def lenet5(x, y):
     Returns:
 
     a tensor for the softmax activated output
-    a training operation that utilizes Adam optimization (with default hyperparameters)
+    a training operation that utilizes Adam
+    optimization (with default hyperparameters)
     a tensor for the loss of the netowrk
     a tensor for the accuracy of the network
     """
@@ -44,7 +45,7 @@ def lenet5(x, y):
                          kernel_initializer=init)(f1)
 
     y_pred = tf.layers.Dense(units=10,
-                         kernel_initializer=init)(f2)
+                             kernel_initializer=init)(f2)
     loss = tf.losses.softmax_cross_entropy(y, y_pred)
     softmax = tf.nn.softmax(y_pred)
     arg1 = tf.math.argmax(y, 1)
