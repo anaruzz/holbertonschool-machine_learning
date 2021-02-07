@@ -17,8 +17,8 @@ def conv_forward(A_prev, W, b, activation,
         ph = 0
         pw = 0
     elif padding == 'same':
-        ph = int((h_prev - 1) * sh + kh % 2 - h_prev) + 1
-        pw = int((w_prev - 1) * sw + kw % 2 - w_prev) + 1
+        ph = (((imgh - 1) * sh + kh - imgh) // 2) + int(kh % 2 == 0)
+        pw = (((imgw - 1) * sw + kw - imgw) // 2) + int(kw % 2 == 0)
     else:
         ph, pw = padding
 
