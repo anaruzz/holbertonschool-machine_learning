@@ -19,6 +19,8 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     if padding == 'same':
         ph = (((ph * sh) - sh + kh - ph) // 2) + 1
         pw = (((pw * sw) - sw + kw - pw) // 2) + 1
+    if type(padding) == tuple:
+        ph, pw = padding
 
     new = np.pad(A_prev, ((0, 0), (ph, ph),
                           (pw, pw), (0, 0)),
