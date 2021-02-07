@@ -36,7 +36,7 @@ def lenet5(X):
                         kernel_initializer=init)(n1)
 
     y_pred = k.layers.Dense(units=10, activation='softmax',
-                        kernel_initializer=init)(n2)
+                            kernel_initializer=init)(n2)
 
     model = k.Model(inputs=X, outputs=y_pred)
     model.compile(optimizer='adam',
