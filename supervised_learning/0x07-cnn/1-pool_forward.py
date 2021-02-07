@@ -18,8 +18,8 @@ def pool_forward(A_prev, kernel_shape, stride=(1, 1), mode='max'):
     else:
         op = np.average
 
-    output_h =  (h_prev - kh) // sh + 1
-    output_w =  (w_prev - kh) // sw + 1
+    output_h = (h_prev - kh) // sh + 1
+    output_w = (w_prev - kh) // sw + 1
     output = np.zeros((m, output_h, output_w, c))
 
     for i in range(output_h):
