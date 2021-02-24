@@ -13,6 +13,7 @@ def l2_reg_gradient_descent(Y, weights, cache, alpha, lambtha, L):
     m = Y.shape[1]
     dz = cache['A' + str(L)] - Y
     for i in range(L, 0, -1):
+        # output of previous layer
         A_prev = cache['A' + str(i-1)]
         # weight derivative
         dw = np.matmul(dz, A_prev.T) / m
