@@ -5,18 +5,19 @@ Script that conducts forward propagation using Dropout:
 import numpy as np
 
 
-
 def tanh(z):
     """
     tanh activation function
     """
     return np.tanh(z)
 
+
 def softmax(z):
     """
     softmax activation function
     """
     return np.exp(z) / (np.sum(np.exp(z), axis=0))
+
 
 def dropout_forward_prop(X, weights, L, keep_prob):
     """
