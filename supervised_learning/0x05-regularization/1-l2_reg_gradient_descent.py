@@ -10,7 +10,7 @@ def l2_reg_gradient_descent(Y, weights, cache, alpha, lambtha, L):
     """
     updates the weights and biases
     """
-    m = Y.shape[0]
+    m = len(Y[0])
     dz = cache['A' + str(L)] - Y
     for i in range(L, 0, -1):
         A_prev = cache['A' + str(i-1)]
