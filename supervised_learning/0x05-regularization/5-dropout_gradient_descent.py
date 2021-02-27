@@ -14,19 +14,19 @@ def dropout_gradient_descent(Y, weights, cache, alpha, keep_prob, L):
     dzi = cache['A' + str(L)] - Y
     for i in range(L, 0, -1):
         A_prev = cache['A' + str(i-1)]
-        ## weight derivative
+        # weight derivative
         dwi = np.matmul(dzi, A_prev.T) / m
-        ## bias derivative
+        # bias derivative
         dbi = np.sum(dzi, axis=1, keepdims=True) / m
-        ## activation function derivative
+        # activation function derivative
         dgi = 1 - (A_prev ** 2)
-        ## output
+        # output
         dAi = np.matmul(weights['W'+str(i)].T, dzi)
         if i > 1:
             dAi = dAi * cache["D" + str(i - 1)]
             dAi = dAi / keep_prob
-        ## Z derivative
+        # Z derivative
         dzi = dAi * dgi
-         # update weights and bias
+        # update weights and bias
         weights["W" + str(i)] -= alpha * dwi
         weights["b" + str(i)] -= alpha * dbi
