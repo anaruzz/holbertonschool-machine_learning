@@ -6,13 +6,13 @@ images using multiple kernels
 import numpy as np
 
 
-def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
+def convolve(images, kernels, padding='same', stride=(1, 1)):
     """
     Returns a numpy.ndarray containing
     the convolved images
     """
-    m, h, w = images.shape[:3]
-    kh, kw = kernel.shape[:2]
+    m, h, w, c = images.shape
+    kh, kw, kc, nc = kernels.shape
     sh, sw = stride
 
     if type(padding) is tuple:
@@ -26,7 +26,7 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
     filter_w = (w - kw + (2 * padd_w)) // sw + 1
     filter_h = (h - kh + (2 * padd_h)) // sh + 1
 
-    output = np.zeros((m, filter_h, filter_w))
+    output = np.zeros((m, filter_h, filter_w, nc))
 
     padded_img = np.pad(
         array=images,
@@ -35,7 +35,9 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
     )
     for i in range(filter_h):
         for j in range(filter_w):
-            output[:, i, j] = np.sum(
-                kernel * padded_img[:, i*sh: i*sh+kh,
-                                    j*sw: j*sw+kw], axis=(1, 2, 3))
+            for k in range(nc):
+                output[:, i, j, k] = np.sum(
+                    kernels[:, :, :, k] *
+                    padded_img[:, i*sh: i*sh+kh, j*sw: j*sw+kw, :],
+                    axis=(1, 2, 3))
     return output
