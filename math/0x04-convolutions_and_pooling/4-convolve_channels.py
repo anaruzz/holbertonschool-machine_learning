@@ -11,7 +11,7 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
     Returns a numpy.ndarray containing
     the convolved images
     """
-    m, h, w = images.shape[:3]
+    m, h, w, c = images.shape
     kh, kw = kernel.shape[:2]
     sh, sw = stride
 
@@ -37,5 +37,5 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
         for j in range(filter_w):
             output[:, i, j] = np.sum(
                 kernel * padded_img[:, i*sh: i*sh+kh,
-                                    j*sw: j*sw+kw], axis=(1, 2, 3))
+                                    j*sw: j*sw+kw], axis=(1, 2, c))
     return output
