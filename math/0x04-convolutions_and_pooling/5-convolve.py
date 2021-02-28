@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Script that performs a strided convolution on
-images with channels
+Script that performs a convolution on
+images using multiple kernels
 """
 import numpy as np
 
