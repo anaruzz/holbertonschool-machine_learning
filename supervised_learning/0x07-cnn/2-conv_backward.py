@@ -24,8 +24,7 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
         ph, pw = padding
 
     new = np.pad(A_prev, ((0, 0), (ph, ph),
-                          (pw, pw), (0, 0)),
-                 'constant')
+                          (pw, pw), (0, 0)), 'constant')
 
     db = np.sum(dZ, axis=(0, 1, 2), keepdims=True)
     DZ_new = np.zeros(new.shape)
