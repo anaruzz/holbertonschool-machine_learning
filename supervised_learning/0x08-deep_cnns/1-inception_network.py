@@ -28,32 +28,32 @@ def inception_network():
                            padding='same',
                            activation='relu')(l_max1)
 
-    l3x3 = K.layers.Conv2D(filters=192,
-                           kernel_size=(3, 3),
-                           strides=(1, 1),
-                           padding='same',
-                           activation='relu')(l3x3)
+    l3x3_2 = K.layers.Conv2D(filters=192,
+                             kernel_size=(3, 3),
+                             strides=(1, 1),
+                             padding='same',
+                             activation='relu')(l3x3)
 
-    l_max2 = K.layers.MaxPooling2D(pool_size=(3, 3),
+    l_max2 = K.layers.MaxPooling2D(pool_size=333,
                                    strides=(2, 2),
-                                   padding='same')(l3x3)
+                                   padding='same')(l3x3_2)
 
     inception = inception_block(l_max2, [64, 96, 128, 16, 32, 32])
     inception = inception_block(inception, [128, 128, 192, 32, 96, 64])
 
     l_max3 = K.layers.MaxPooling2D(pool_size=(3, 3),
-                                  strides=(2, 2),
-                                  padding='same')(inception)
+                                   strides=(2, 2),
+                                   padding='same')(inception)
 
     inception1 = inception_block(l_max3, [192, 96, 208, 16, 48, 64])
     inception2 = inception_block(inception1, [160, 112, 224, 24, 64, 64])
-    inception3 = inception_block(inception1, [128, 128, 256, 24, 64, 64])
+    inception3 = inception_block(inception2, [128, 128, 256, 24, 64, 64])
     inception4 = inception_block(inception3, [112, 144, 288, 32, 64, 64])
     inception5 = inception_block(inception4, [256, 160, 320, 32, 128, 128])
 
     l_max4 = K.layers.MaxPooling2D(pool_size=(3, 3),
-                                  strides=(2, 2),
-                                  padding='same')(inception5)
+                                   strides=(2, 2),
+                                   padding='same')(inception5)
 
     inception6 = inception_block(l_max4, [256, 160, 320, 32, 128, 128])
     inception7 = inception_block(inception6, [384, 192, 384, 48, 128, 128])
