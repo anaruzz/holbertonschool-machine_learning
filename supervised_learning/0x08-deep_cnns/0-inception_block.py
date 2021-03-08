@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Script that builds an inception network
+Script that builds an inception block
 """
 import tensorflow.keras as K
 
