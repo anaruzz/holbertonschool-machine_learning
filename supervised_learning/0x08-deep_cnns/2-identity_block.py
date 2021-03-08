@@ -6,63 +6,37 @@ import tensorflow.keras as K
 inception_block = __import__('0-inception_block').inception_block
 
 
-def inception_network():
+def identity_block(A_prev, filters):
     """
     Returns the concatenated output of the inception block
     """
+    F11, F3, F12 = filters
+    kernel = K.initializers.he_normal()
 
-    X = K.Input(shape=(224, 224, 3))
-
-    l7x7 = K.layers.Conv2D(filters=64,
-                           kernel_size=(7, 7),
-                           strides=(2, 2),
-                           padding='same',
-                           activation='relu')(X)
-
-    l_max1 = K.layers.MaxPooling2D(pool_size=(3, 3),
-                                   strides=(2, 2),
-                                   padding='same')(l7x7)
-
-    l3x3 = K.layers.Conv2D(filters=64,
+    layer1x1 = K.layers.Conv2D(filters=F11,
                            kernel_size=(1, 1),
                            padding='same',
-                           activation='relu')(l_max1)
+                           kernel_initializer=kernel)(A_prev)
 
-    l3x3_2 = K.layers.Conv2D(filters=192,
+    layer1x1 = K.layers.BatchNormalization()(layer1x1)
+
+    layer1x1 = K.layers.Activation('relu')(layer1x1)
+
+    layer3x3 = K.layers.Conv2D(filters=F3,
                              kernel_size=(3, 3),
-                             strides=(1, 1),
                              padding='same',
-                             activation='relu')(l3x3)
+                             kernel_initializer=kernel)(layer1x1)
 
-    l_max2 = K.layers.MaxPooling2D(pool_size=333,
-                                   strides=(2, 2),
-                                   padding='same')(l3x3_2)
+    layer3x3 = K.layers.BatchNormalization()(layer3x3)
+    layer3x3 = K.layers.Activation('relu')(layer3x3)
 
-    inception = inception_block(l_max2, [64, 96, 128, 16, 32, 32])
-    inception = inception_block(inception, [128, 128, 192, 32, 96, 64])
+    layer1x1 = K.layers.Conv2D(filters=F12,
+                             kernel_size=(1, 1),
+                             padding='same',
+                             kernel_initializer=kernel)(layer3x3)
 
-    l_max3 = K.layers.MaxPooling2D(pool_size=(3, 3),
-                                   strides=(2, 2),
-                                   padding='same')(inception)
+    output = K.layers.Add()([layer1x1, A_prev])
 
-    inception1 = inception_block(l_max3, [192, 96, 208, 16, 48, 64])
-    inception2 = inception_block(inception1, [160, 112, 224, 24, 64, 64])
-    inception3 = inception_block(inception2, [128, 128, 256, 24, 64, 64])
-    inception4 = inception_block(inception3, [112, 144, 288, 32, 64, 64])
-    inception5 = inception_block(inception4, [256, 160, 320, 32, 128, 128])
+    output = K.layers.Activation('relu')(output)
 
-    l_max4 = K.layers.MaxPooling2D(pool_size=(3, 3),
-                                   strides=(2, 2),
-                                   padding='same')(inception5)
-
-    inception6 = inception_block(l_max4, [256, 160, 320, 32, 128, 128])
-    inception7 = inception_block(inception6, [384, 192, 384, 48, 128, 128])
-
-    avg_l = K.layers.AveragePooling2D(pool_size=(7, 7),
-                                      padding='same')(inception7)
-
-    drop = K.layers.Dropout(rate=0.4)(avg_l)
-
-    Y = K.layers.Dense(units=1000, activation='softmax')(drop)
-    model = K.models.Model(inputs=X, outputs=Y)
-    return model
+    return output
