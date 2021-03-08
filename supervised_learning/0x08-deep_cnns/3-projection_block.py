@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-Script that builds an identity block
+Script that builds a projection block
 """
 import tensorflow.keras as K
 
 
-def identity_block(A_prev, filters):
+def projection_block(A_prev, filters, s=2):
     """
-    Returns the activated output of the identity block
+    Returns the activated output of the projection block
     """
     F11, F3, F12 = filters
     kernel = K.initializers.he_normal()
