@@ -11,13 +11,13 @@ def dense_block(X, nb_filters, growth_rate, layers):
     the Dense Block and the number of filters within
     the concatenated outputs, respectively.
     """
-    output = X
+
     kernel = K.initializers.he_normal()
 
     for l in range(layers):
-        norm1 = K.layers.BatchNormalization()(output)
+        norm1 = K.layers.BatchNormalization()(X)
         act1 = K.layers.Activation('relu')(norm1)
-        conv1 = K.layers.Conv2D(filters=128,
+        conv1 = K.layers.Conv2D(filters=(4 * growth_rate),
                                 kernel_size=(1, 1),
                                 padding='same',
                                 kernel_initializer=kernel)(act1)
@@ -27,6 +27,6 @@ def dense_block(X, nb_filters, growth_rate, layers):
                                 kernel_size=(3, 3),
                                 padding='same',
                                 kernel_initializer=kernel)(act2)
-        output = K.layers.Concatenate()([output, conv2])
+        X = K.layers.concatenate([X, conv2])
         nb_filters += growth_rate
-        return output, nb_filters
+    return X, nb_filters
