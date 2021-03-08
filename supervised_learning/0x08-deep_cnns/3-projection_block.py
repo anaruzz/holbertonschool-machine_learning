@@ -12,30 +12,39 @@ def projection_block(A_prev, filters, s=2):
     F11, F3, F12 = filters
     kernel = K.initializers.he_normal()
 
-    layer1x1 = K.layers.Conv2D(filters=F11,
-                               kernel_size=(1, 1),
-                               padding='same',
-                               kernel_initializer=kernel)(A_prev)
+    conv1 = K.layers.Conv2D(filters=F11,
+                            kernel_size=(1, 1),
+                            padding='same',
+                            kernel_initializer=kernel,
+                            strides=s)(A_prev)
 
-    layer1x1 = K.layers.BatchNormalization()(layer1x1)
+    norm1 = K.layers.BatchNormalization()(conv1)
 
-    layer1x1 = K.layers.Activation('relu')(layer1x1)
+    act1 = K.layers.Activation('relu')(norm1)
 
-    layer3x3 = K.layers.Conv2D(filters=F3,
-                               kernel_size=(3, 3),
-                               padding='same',
-                               kernel_initializer=kernel)(layer1x1)
+    conv2 = K.layers.Conv2D(filters=F3,
+                            kernel_size=(3, 3),
+                            padding='same',
+                            kernel_initializer=kernel)(act1)
 
-    layer3x3 = K.layers.BatchNormalization()(layer3x3)
-    layer3x3 = K.layers.Activation('relu')(layer3x3)
+    norm2 = K.layers.BatchNormalization()(conv2)
+    act2 = K.layers.Activation('relu')(norm2)
 
-    layer1x1 = K.layers.Conv2D(filters=F12,
-                               kernel_size=(1, 1),
-                               padding='same',
-                               kernel_initializer=kernel)(layer3x3)
+    conv3 = K.layers.Conv2D(filters=F12,
+                            kernel_size=(1, 1),
+                            padding='same',
+                            kernel_initializer=kernel)(act2)
 
-    layer1x1 = K.layers.BatchNormalization()(layer1x1)
-    output = K.layers.Add()([layer1x1, A_prev])
+    norm3 = K.layers.BatchNormalization()(conv3)
+
+    conv4 = K.layers.Conv2D(filters=F12,
+                            kernel_size=(1, 1),
+                            padding='same',
+                            kernel_initializer=kernel,
+                            strides=s)(A_prev)
+
+    norm4 = K.layers.BatchNormalization()(conv4)
+    output = K.layers.Add()([norm3, norm4])
 
     output = K.layers.Activation('relu')(output)
 
