@@ -90,5 +90,4 @@ def inverse(matrix):
     if det == 0:
         return None
     adj = adjugate(matrix)
-    inv = [[c / det for c in row] for row in adj]
-    return inv
+    return [[col / det for col in row] for row in adj]
