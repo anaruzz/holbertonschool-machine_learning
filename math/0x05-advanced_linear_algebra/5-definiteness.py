@@ -18,14 +18,13 @@ def definiteness(matrix):
     if not np.array_equal(matrix.T, matrix):
         return None
 
-    e = np.linalg.eigvals(matrix)
-    if np.all(e > 0):
-        return ("Positive definite")
-    elif np.all(e < 0):
-        return ("Negative definite")
-    elif np.all(e >= 0):
-        return ("Psositive semi definite")
-    elif np.all(e <= 0):
-        return ("Negative semi definite")
-    else:
-        return ("Indefinite")
+    e = np.linalg.eigvals(matrix)[0]
+    if np.all(e >= 0):
+        if np.any(e == 0):
+            return 'Positive semi-definite'
+        return 'Positive definite'
+    if np.all(e <= 0):
+        if np.any(e == 0):
+            return 'Negative semi-definite'
+        return 'Negative definite'
+    return 'Indefinite'
