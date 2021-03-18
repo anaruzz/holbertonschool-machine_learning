@@ -23,9 +23,12 @@ def determinant(matrix):
     if type(matrix) is not list or matrix == []:
         raise TypeError('matrix must be a list of lists')
 
-    if len(matrix) != len(matrix[0]):
-        raise ValueError('matrix must be a square matrix')
-
+    for i in matrix:
+        if type(i) != list:
+            raise TypeError("matrix must be a list of lists")
+        if len(matrix) != len(i):
+            raise ValueError("matrix must be a square matrix")
+            
     if len(matrix) == 2:
         det = matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1]
     else:
