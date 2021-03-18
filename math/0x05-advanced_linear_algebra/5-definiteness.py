@@ -6,12 +6,16 @@ import numpy as np
 
 
 def definiteness(matrix):
+    """
+    Returnes the defini of a matrix
+    """
     if type(matrix) is not np.ndarray:
         raise TypeError("matrix must be a numpy.ndarray")
 
-    if not np.array_equal(matrix.T, matrix):
-        return None
     if len(matrix.shape) == 1:
+        return None
+
+    if not np.array_equal(matrix.T, matrix):
         return None
 
     e = np.linalg.eigvals(matrix)
@@ -20,7 +24,7 @@ def definiteness(matrix):
     elif np.all(e < 0):
         return ("Negative definite")
     elif np.all(e >= 0):
-        return ("positive semi definite")
+        return ("Positive semi definite")
     elif np.all(e <= 0):
         return ("Negative definite")
     else:
