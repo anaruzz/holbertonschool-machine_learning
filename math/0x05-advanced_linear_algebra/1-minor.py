@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Function that calculates the determinant of a matrix
+Function that calculates the minor of a matrix
 """
 
 
@@ -37,3 +37,31 @@ def determinant(matrix):
             cofactor = getcofactor(matrix, 0, j)
             det += sign * matrix[0][j] * determinant(cofactor)
     return det
+
+
+def minor(matrix):
+    """
+    Returns the minor matrix of matrix
+    """
+    if type(matrix) != list or len(matrix) == 0:
+        raise TypeError("matrix must be a list of lists")
+
+    for i in matrix:
+        if type(i) != list:
+            raise TypeError("matrix must be a list of lists")
+        if len(matrix) != len(i):
+            raise ValueError("matrix must be a non-empty square matrix")
+
+    if len(matrix) == 1:
+        return [[1]]
+
+    m = []
+    for i in range(len(matrix)):
+        s = []
+        for j in range(len(matrix[0])):
+            new = []
+            for row in (matrix[:i] + matrix[i + 1:]):
+                new.append(row[:j] + row[j + 1:])
+            s.append(determinant(new))
+        m.append(s)
+    return m
