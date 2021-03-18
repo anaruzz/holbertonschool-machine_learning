@@ -18,7 +18,7 @@ def definiteness(matrix):
     if not np.array_equal(matrix.T, matrix):
         return None
 
-    e = np.linalg.eigvals(matrix)[0]
+    e = np.linalg.eigvals(matrix)
     if np.all(e >= 0):
         if np.any(e == 0):
             return 'Positive semi-definite'
