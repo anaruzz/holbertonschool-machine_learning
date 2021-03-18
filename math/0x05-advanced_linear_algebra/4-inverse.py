@@ -89,5 +89,8 @@ def inverse(matrix):
     det = determinant(matrix)
     if det == 0:
         return None
+    if len(matrix) == 1:
+        return [[1 / matrix[0][0]]]
     adj = adjugate(matrix)
-    return [[col / det for col in row] for row in adj]
+    inv = [[c / det for c in row] for row in adj]
+    return inv
