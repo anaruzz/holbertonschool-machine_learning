@@ -86,11 +86,17 @@ def inverse(matrix):
     """
     Returns the inverse of a matrix
     """
+    if type(matrix) != list or len(matrix) == 0:
+        raise TypeError("matrix must be a list of lists")
+
+    for i in matrix:
+        if type(i) != list:
+            raise TypeError("matrix must be a list of lists")
+        if len(matrix) != len(i):
+            raise ValueError("matrix must be a non-empty square matrix")
     det = determinant(matrix)
     if det == 0:
         return None
-    if len(matrix) == 1:
-        return [[1 / matrix[0][0]]]
     adj = adjugate(matrix)
     inv = [[c / det for c in row] for row in adj]
     return inv
