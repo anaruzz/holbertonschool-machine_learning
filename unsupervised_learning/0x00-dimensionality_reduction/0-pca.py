@@ -18,4 +18,4 @@ def pca(X, var=0.95):
         t += s[n]
         n += 1
 
-    return v[:n+1].T
+    return v[:n+2].T
