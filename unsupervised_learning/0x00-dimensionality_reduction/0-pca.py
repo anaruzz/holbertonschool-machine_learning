@@ -11,11 +11,11 @@ def pca(X, var=0.95):
     var fraction of X's original variance
     """
     _, s, v = np.linalg.svd(X)
-    n = 0
     sv = s.sum() * var
+    n = 0
     t = s[0]
     while (t < sv):
-        t += s[n]
         n += 1
-    n += 1
+        t += s[n]
+
     return v[:n+1].T
