@@ -6,9 +6,12 @@ import numpy as np
 
 
 def pca(X, var=0.95):
-    """ Function that performs PCA on a dataset: """
-    U, s, V = np.linalg.svd(X)
-    cumulated = np.cumsum(s)
-    percentage = cumulated / np.sum(s)
-    r = np.argwhere(percentage >= var)[0, 0]
-    return V[:r + 1].T
+    """ performs PCA on a dataset """
+    _, s, vh = np.linalg.svd(X)
+    n = 0
+    s_var = s.sum() * var
+    tot = s[0]
+    while(tot < s_var):
+        n += 1
+        tot += s[n]
+    return vh[:n+1].T
