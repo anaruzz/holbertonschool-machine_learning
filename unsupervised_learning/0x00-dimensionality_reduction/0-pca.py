@@ -6,12 +6,16 @@ import numpy as np
 
 
 def pca(X, var=0.95):
-    """ performs PCA on a dataset """
-    _, s, vh = np.linalg.svd(X)
+    """
+    Returns the weights matrix, W that maintains
+    var fraction of X's original variance
+    """
+    _, s, v = np.linalg.svd(X)
     n = 0
-    s_var = s.sum() * var
-    tot = s[0]
-    while(tot < s_var):
+    sv = s.sum() * var
+    t = s[0]
+    while (t < sv):
+        t += s[n]
         n += 1
-        tot += s[n]
-    return vh[:n+1].T
+    n += 1
+    return v[:n+1].T
