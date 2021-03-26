@@ -34,7 +34,7 @@ class MultiNormal():
             raise TypeError("x must be a numpy.ndarray")
         d = self.cov.shape[0]
         if len(x.shape) != 2 or x.shape != (d, 1):
-            raise ValueError("x must have the shape({}, 1)".format(d))
+            raise ValueError("x must have the shape ({}, 1)".format(d))
         xi = x - self.mean
         sqrt = np.sqrt((2 * np.pi) ** d * np.linalg.det(self.cov))
         inv = np.linalg.solve(self.cov, xi)
