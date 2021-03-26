@@ -32,5 +32,5 @@ def marginal(x, n, P, Pr):
     f = np.math.factorial
     combination = f(n) / (f(x) * f(n - x))
     prob = np.power(P, x) * np.power(1 - P, n - x)
-    intersection =  combination * prob * Pr
+    intersection = combination * prob * Pr
     return np.sum(intersection)
