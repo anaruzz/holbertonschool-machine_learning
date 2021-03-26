@@ -5,7 +5,7 @@ probability of developing severe side effects falls
 within a specific range given the data
 """
 import numpy as np
-from scipy import special
+from scipy import math, special
 
 
 def posterior(x, n, p1, p2):
