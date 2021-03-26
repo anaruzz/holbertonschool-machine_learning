@@ -15,7 +15,7 @@ class MultiNormal():
         """
         class constructor
         """
-        if type(data) is not np.ndarray or len(data.shape) != 2:
+        if type(data) is not np.ndarray or len(data.shape) < 2:
             raise TypeError("data must be a numpy.ndarray")
 
         if data.shape[1] < 2:
