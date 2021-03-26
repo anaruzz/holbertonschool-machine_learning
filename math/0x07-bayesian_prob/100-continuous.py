@@ -28,7 +28,7 @@ def posterior(x, n, p1, p2):
         raise ValueError("p2 must be greater than p1")
 
     f1 = x + 1
-    f2 = n - x + 2
-    beta = special.betainc(f1, f2, p1)
-    alfa = special.betainc(f1, f2, p2)
+    f2 = n - x + 1
+    alfa = special.btdtr(f1, f2, p2)
+    beta = special.btdtr(f1, f2, p1)
     return alfa - beta
