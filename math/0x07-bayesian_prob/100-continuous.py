@@ -29,6 +29,6 @@ def posterior(x, n, p1, p2):
 
     f1 = x + 1
     f2 = n - x + 2
-    alfa = special.btdtr(f1, f2, p2)
-    beta = special.btdtr(f1, f2, p1)
+    beta = special.betainc(f1, f2, p1)
+    alfa = special.betainc(f1, f2, p2)
     return alfa - beta
