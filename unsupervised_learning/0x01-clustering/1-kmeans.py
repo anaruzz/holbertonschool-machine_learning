@@ -39,7 +39,7 @@ def kmeans(X, k, iterations=1000):
     if type(k) is not int or k <= 0:
         return None, None
     if type(iterations) is not int or iterations < 1:
-            return None, None
+        return None, None
 
     c = initialize(X, k)
     if c.any() is None:
