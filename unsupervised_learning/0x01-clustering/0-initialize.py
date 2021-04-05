@@ -11,7 +11,7 @@ def initialize(X, k):
     the initialized centroids for each cluster,
     or None on failure
     """
-    if type(X) is not np.ndarray:
+    if type(X) is not np.ndarray or len(X.shape) != 2:
         return None
     if type(k) is not int or k <= 0:
         return None
