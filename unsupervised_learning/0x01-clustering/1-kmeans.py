@@ -52,11 +52,10 @@ def kmeans(X, k, iterations=1000):
             distances = np.sqrt((distances ** 2).sum(axis=2))
             clss = np.argmin(distances, axis=0)
             for j in range(k):
-                index = np.argwhere(clss == j)
-                if index.shape[0] == 0:
+                if len(X[clss == j]) == 0:
                     c[j] = initialize(X, 1)
                 else:
-                    c[j] = np.mean(X[index], axis=0)
+                    c[j] = np.mean(X[clss == j], axis=0)
             if np.all(old_c == c):
                 break
         return c, clss
