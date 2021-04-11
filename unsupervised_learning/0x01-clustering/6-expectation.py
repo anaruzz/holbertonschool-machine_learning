@@ -11,7 +11,8 @@ def expectation(X, pi, m, S):
     """
     Returns: g, l, or None, None on failure
 
-    g is a numpy.ndarray of shape (k, n) containing the posterior probabilities for each data point in each cluster
+    g is a numpy.ndarray of shape (k, n) containing the
+    posterior probabilities for each data point in each cluster
     l is the total log likelihood
 
     """
