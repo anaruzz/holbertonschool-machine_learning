@@ -17,16 +17,16 @@ def maximization(X, g):
     if X.shape[0] != g.shape[1]:
         return None, None, None
 
-    # initialize with zeros
-    pi = np.zeros((g.shape[0],))
-    m = np.zeros((g.shape[0], X.shape[1]))
+    # initialize
+    gsum = g.sum(axis=1)
+    pi = gsum / X.shape[0]
+    m = np.matmul(g, X) / gsum[:, np.newaxis]
     S = np.zeros((g.shape[0], X.shape[1], X.shape[1]))
 
     for i in range(g.shape[0]):
-        gsum = np.sum(g[i], axis=0)
-        pi[i] = gsum / X.shape[0]
-        m[i] = np.sum(np.matmul(g[i][np.newaxis, ...], X), axis=0) / gsum
-        S[i] = np.matmul(g[i][np.newaxis, ...] * (X - m[i]).T, (X - m[i])) / gsum
+        diff = X - m[i]
+        S[i] = (np.matmul((diff * g[i, :, np.newaxis]).T, diff)
+                          / gsum[i])
 
 
     return pi, m, S
