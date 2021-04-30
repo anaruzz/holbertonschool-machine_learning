@@ -16,7 +16,8 @@ def maximization(X, g):
         return None, None, None
     if X.shape[0] != g.shape[1]:
         return None, None, None
-
+    if not np.all(np.isclose(g.sum(axis=0), 1)):
+        return None, None, None
     # initialize
     gsum = g.sum(axis=1)
     pi = gsum / X.shape[0]
