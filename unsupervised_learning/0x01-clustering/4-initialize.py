@@ -11,10 +11,9 @@ def initialize(X, k):
     """
     Returns: pi, m, S, or None, None, None on failure
 
-    pi is a numpy.ndarray of shape (k,) containing the priors for each cluster, initialized evenly
-    m is a numpy.ndarray of shape (k, d) containing the centroid means for each cluster, initialized with K-means
-    S is a numpy.ndarray of shape (k, d, d) containing the covariance matrices for each cluster, initialized as identity matrices
-
+    pi is a numpy.ndarray of shape (k,)
+    m is a numpy.ndarray of shape (k, d)
+    S is a numpy.ndarray of shape (k, d, d)
     """
     if type(X) is not np.ndarray or len(X.shape) != 2:
         return None, None, None
