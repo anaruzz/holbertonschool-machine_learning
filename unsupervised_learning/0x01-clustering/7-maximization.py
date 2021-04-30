@@ -25,8 +25,7 @@ def maximization(X, g):
 
     for i in range(g.shape[0]):
         diff = X - m[i]
-        S[i] = (np.matmul((diff * g[i, :, np.newaxis]).T, diff)
-                          / gsum[i])
-
+        S[i] = np.matmul((diff * g[i, :, np.newaxis])
+                         .T, diff) / gsum[i]
 
     return pi, m, S
