@@ -22,6 +22,9 @@ def regular(P):
     if np.any(P <= 0):
         return None
 
+    if not np.all(np.isclose(P.sum(axis=1), 1)):
+        return None
+
     evals, evecs = np.linalg.eig(P.T)
     evecs = evecs[:, np.isclose(evals, 1)]
     steady = (evecs / evecs.sum().T)
