@@ -21,4 +21,8 @@ def markov_chain(P, s, t=1):
     if np.any(np.sum(P, axis=1)) != 1:
         return None
 
-    return np.matmul(s, np.linalg.matrix_power(P, t))
+    # return np.matmul(s, np.linalg.matrix_power(P, t))
+    while (t > 0):
+        s = np.matmul(s, P)
+        t -= 1
+    return s
