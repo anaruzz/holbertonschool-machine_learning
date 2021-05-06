@@ -27,5 +27,5 @@ def regular(P):
 
     evals, evecs = np.linalg.eig(P.T)
     evecs = evecs[:, np.isclose(evals, 1)]
-    steady = (evecs / evecs.sum().T)
+    steady = (evecs / evecs.sum()).T
     return steady
