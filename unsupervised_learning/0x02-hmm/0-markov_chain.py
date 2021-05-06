@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
- that determines the probability of a markov
- chain being in a particular state after a
- specified number of iterations
+Function that determines the probability of a markov
+chain being in a particular state after a
+specified number of iterations
 """
 import numpy as np
 
@@ -13,3 +13,12 @@ def markov_chain(P, s, t=1):
     the probability of being in a specific state after t iterations
     or None on failure
     """
+    if type(P) is not np.ndarray or len(P.shape) != 2:
+        return None
+    n = P.shape[1]
+    if type(s) is not np.ndarray or s.shape != (1, n):
+        return None
+    if np.any(np.sum(P, axis=1)) != 1:
+        return None
+
+    return np.matmul(s, np.linalg.matrix_power(P, t))
