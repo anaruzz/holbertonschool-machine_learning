@@ -6,7 +6,7 @@ of a regular markov chain
 import numpy as np
 
 
-def markov_chain(P, s, t=1):
+def regular(P):
     """
     Returns a np.ndarray of shape (1, n) containing the
     steady state probabilities of a regular markov chain
@@ -14,14 +14,15 @@ def markov_chain(P, s, t=1):
     """
     if type(P) is not np.ndarray or len(P.shape) != 2:
         return None
-    n = P.shape[1]
-    if type(s) is not np.ndarray or s.shape != (1, n):
-        return None
-    if np.any(np.sum(P, axis=1)) != 1:
+
+    n, m = P.shape
+    if n != m:
         return None
 
-    # return np.matmul(s, np.linalg.matrix_power(P, t))
-    while (t > 0):
-        s = np.matmul(s, P)
-        t -= 1
-    return s
+    if np.any(P <= 0):
+        return None
+
+    evals, evecs = np.linalg.eig(P.T)
+    evecs = evecs[:, np.isclose(evals, 1)]
+    steady = (evecs / evecs.sum().T)
+    return steady
