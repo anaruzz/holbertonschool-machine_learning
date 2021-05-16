@@ -10,12 +10,10 @@ def absorbing(P):
     Returns True if it is absorbing, or False on failure
     """
     if type(P) is not np.ndarray or len(P.shape) != 2:
-
         return None
 
     n, m = P.shape
     if n != m:
-
         return None
 
     if np.any(P < 0):
