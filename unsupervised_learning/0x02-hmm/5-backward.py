@@ -11,8 +11,10 @@ def backward(Observation, Emission, Transition, Initial):
     Returns: P, B, or None, None on failure
 
     Pis the likelihood of the observations given the model
-    B is a numpy.ndarray of shape (N, T) containing the backward path probabilities
-        B[i, j] is the probability of generating the future observations from hidden state i at time j
+    B is a numpy.ndarray of shape (N, T) containing the
+    backward path probabilities
+        B[i, j] is the probability of generating the future
+        observations from hidden state i at time j
     """
     if type(Observation) is not np.ndarray or len(Observation.shape) != 1:
         return None, None
