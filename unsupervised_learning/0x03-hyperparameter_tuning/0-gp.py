@@ -4,6 +4,7 @@ Script that represents a noiseless 1D Gaussian Process
 """
 import numpy as np
 
+
 class GaussianProcess():
     """
     A class that represents a gaussian process
