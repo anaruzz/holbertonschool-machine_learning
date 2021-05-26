@@ -17,10 +17,10 @@ class GRUCell():
         self.Wr = np.random.normal(size=(i + h, h))
         self.Wh = np.random.normal(size=(i + h, h))
         self.Wy = np.random.normal(size=(h, o))
+        self.bh = np.zeros((1, h))
         self.bz = np.zeros((1, h))
         self.br = np.zeros((1, h))
-        self.bh = np.zeros((1, h))
-        self.by = np.zeros((1, h))
+        self.by = np.zeros((1, o))
 
     def forward(self, h_prev, x_t):
         """
@@ -29,18 +29,20 @@ class GRUCell():
                 y: the output of the cell
         """
         # Concat h_prev and x_t to match Wh dimensions
-        x_concat0 = np.concatenate((h_prev, x_t), axis=1)
-        r = np.matmul(x_concat0, self.Wr) + self.br
-        r = 1 / (1 + np.exp(-r))
-        z = np.matmul(x_concat0, self.Wz) + self.bz
+        x = np.concatenate((h_prev, x_t), axis=1)
+
+        z = np.dot(x, self.Wz) + self.bz
         z = 1 / (1 + np.exp(-z))
 
-        x_concat1 = np.concatenate((r * h_prev, x_t), axis=1)
-        h_next = np.matmul(x_concat1, self.Wh) + self.bh
-        h_next = np.tanh(h_next)
-        h = (1 - z) * h_prev + z * h_next
+        r = np.dot(x, self.Wr) + self.br
+        r = 1 / (1 + np.exp(-r))
 
-        y = np.matmul(h, self.Wy) + self.by
-        y = np.exp(y) / np.sum(np.exp(y), axis=1, keepdims=True)
+        x = np.concatenate((r * h_prev, x_t), axis=1)
+        h = np.tanh(np.dot(x, self.Wh) + self.bh)
 
-        return h, y
+        h_t = z * h + (1 - z) * h_prev
+
+        y = np.dot(h_t, self.Wy) + self.by
+        y = (np.exp(y) / np.sum(np.exp(y), axis=1, keepdims=True))
+
+        return h_t, y
