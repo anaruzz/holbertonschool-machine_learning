@@ -17,10 +17,10 @@ class GRUCell():
         self.Wr = np.random.normal(size=(i + h, h))
         self.Wh = np.random.normal(size=(i + h, h))
         self.Wy = np.random.normal(size=(h, o))
-        self.bh = np.zeros((1, h))
         self.bz = np.zeros((1, h))
         self.br = np.zeros((1, h))
-        self.by = np.zeros((1, o))
+        self.bh = np.zeros((1, h))
+        self.by = np.zeros((1, h))
 
     def forward(self, h_prev, x_t):
         """
