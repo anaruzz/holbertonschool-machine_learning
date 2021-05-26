@@ -32,11 +32,9 @@ class GRUCell():
         x = np.concatenate((h_prev, x_t), axis=1)
 
         z = np.dot(x, self.Wz) + self.bz
-        # activating usng sigmoid
         z = 1 / (1 + np.exp(-z))
 
         r = np.dot(x, self.Wr) + self.br
-        # activating usng sigmoid
         r = 1 / (1 + np.exp(-r))
 
         x = np.concatenate((r * h_prev, x_t), axis=1)
@@ -45,7 +43,6 @@ class GRUCell():
         h_t = z * h + (1 - z) * h_prev
 
         y = np.dot(h_t, self.Wy) + self.by
-        # activating usng softmax
-        y = np.exp(y) / np.sum(np.exp(y), axis=1, keepdims=True)
+        y = (np.exp(y) / np.sum(np.exp(y), axis=1, keepdims=True))
 
         return h_t, y
