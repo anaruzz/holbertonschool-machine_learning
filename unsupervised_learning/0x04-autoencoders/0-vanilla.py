@@ -2,7 +2,6 @@
 """
 Script that creates a vanilla autoencoder
 """
-import numpy as np
 import tensorflow.keras as keras
 
 
