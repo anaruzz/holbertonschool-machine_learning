@@ -29,7 +29,7 @@ def uni_bleu(references, sentence):
     if ls > lm:
         bp = 1
     else:
-        bp = np.exp(1 - len(best_match) / len(sentence))
+        bp = np.exp(1 - lm / ls)
 
     Bleu_score = bp * precision
     return Bleu_score
