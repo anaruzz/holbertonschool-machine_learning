@@ -14,10 +14,10 @@ def uni_bleu(references, sentence):
     for word in ref:
         if word in sentence:
             count += 1
+    ls = len(sentence)
     precision = count / ls
 
     best_match = None
-    ls = len(sentence)
     for ref in references:
         if best_match is None:
             best_match = ref
