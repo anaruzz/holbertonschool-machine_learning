@@ -10,5 +10,5 @@ def gensim_to_keras(model):
     """
     Returns: the trainable keras Embedding
     """
-    k_embedding =  model.wv.get_keras_embedding(train_embeddings=True)
+    k_embedding = model.wv.get_keras_embedding(train_embeddings=True)
     return k_embedding
