@@ -29,7 +29,6 @@ class BidirectionalCell():
         # Concat h_prev and x_t to match Wh dimensions
         x = np.concatenate((h_prev, x_t), axis=1)
         h_next = np.tanh(np.dot(x, self.Whf) + self.bhf)
-
         return h_next
 
     def backward(self, h_next, x_t):
