@@ -14,17 +14,17 @@ def bi_rnn(bi_cell, X, h_0, h_t):
     """
     t, m, _ = X.shape
     s0 = h_0.shape[1]
-    s1 = h_t.shape[1]
+    st = h_t.shape[1]
 
     Hf = np.zeros((t, m, s0))
-    Hb = np.zeros((t, m, s1))
-    h_prev = h_0
+    Hb = np.zeros((t, m, st))
     for i in range(t):
-        Hf[i] = bi_cell.forward(h_prev, X[i])
+        Hf[i] = bi_cell.forward(h_0, X[i])
         h_0 = Hf[i]
 
     for i in reversed(range(t)):
         Hb[i] = bi_cell.backward(Hb[i], X[i])
+        h_t = Hb[i]
 
     H = np.concatenate((Hf, Hb), axis=2)
     Y = bi_cell.output(H)
