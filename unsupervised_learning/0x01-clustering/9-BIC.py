@@ -43,7 +43,7 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
                                       verbose)
         pi, m, S, _, ll = EM
         bic = (k * d + (k - 1) + k * d * (d + 1) / 2)
-        bic = bic  * np.log(n) - 2 * ll
+        bic = bic * np.log(n) - 2 * ll
         if best is None or bics[best - kmin] > bic:
             best = k
             best_result = (pi, m, S)
