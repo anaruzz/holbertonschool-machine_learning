@@ -23,7 +23,7 @@ def bi_rnn(bi_cell, X, h_0, h_t):
         h_0 = Hf[i]
 
     for i in reversed(range(t)):
-        Hb[i] = bi_cell.backward(Hb[i], X[i])
+        Hb[i] = bi_cell.backward(h_t, X[i])
         h_t = Hb[i]
 
     H = np.concatenate((Hf, Hb), axis=2)
