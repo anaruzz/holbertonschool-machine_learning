@@ -13,7 +13,7 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
     returns: pi, m, S, g, l, or None, None, None on failure
     """
     if type(X) is not np.ndarray or len(X.shape) != 2:
-        return None, None, None, None, Non
+        return None, None, None, None, None
 
     if type(k) is not int or k < 1:
         return None, None, None, None, None
