@@ -47,9 +47,9 @@ class BidirectionalCell():
         """
         Y = []
         for i in range(H.shape[0]):
-                y = np.dot(H[i], self.Wy) + self.by
-                score = np.exp(y)
-                y = score / np.sum((score), axis=1, keepdims=True)
-                Y.append(y)
+            y = np.dot(H[i], self.Wy) + self.by
+            score = np.exp(y)
+            y = score / np.sum((score), axis=1, keepdims=True)
+            Y.append(y)
         Y = np.array(Y)
         return Y
