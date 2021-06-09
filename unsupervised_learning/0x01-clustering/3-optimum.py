@@ -15,7 +15,7 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
     if type(X) is not np.ndarray or len(X.shape) != 2:
         return None, None
 
-    if type(kmin) is not int or kmin < 1:
+    if type(kmin) is not int or kmin > 1:
         return None, None
 
     if type(kmax) is not int or kmax < 1:
@@ -29,9 +29,12 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
 
     results = []
     d_vars = []
-    for i in range(kmin, kmax+1):
-        k_means = kmeans(X, i, iterations)
-        var = variance(X, k_means[0])
+    for i in range(kmin, kmax + 1):
+        centroid, clss = kmeans(X, i, iterations)
+        results.append((centroid, clss))
+        var = variance(X, centroid)
         d_vars.append(var)
-        results.append(k_means)
+
+    for i in range(len(d_vars)):
+        d_vars[i] = variance(X, results[0][0] - d_vars[i])
     return results, d_vars
