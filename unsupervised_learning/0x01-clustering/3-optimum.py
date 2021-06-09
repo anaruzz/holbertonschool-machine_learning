@@ -27,14 +27,14 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
     if type(iterations) is not int or iterations < 1:
         return None, None
 
-    results = []
-    d_vars = []
-    for i in range(kmin, kmax + 1):
-        centroid, clss = kmeans(X, i, iterations)
-        results.append((centroid, clss))
+    d_vars = [0]
+    results = [kmeans(X, kmin, iterations)]
+    first_var = variance(X, results[0][0])
+    while kmin < kmax:
+        kmin += 1
+        centroid, clss = kmeans(X, kmin, iterations)
         var = variance(X, centroid)
-        d_vars.append(var)
+        results.append((centroid, clss))
+        d_vars.append(first_var - var)
 
-    for i in range(len(d_vars)):
-        d_vars[i] = variance(X, results[0][0] - d_vars[i])
     return results, d_vars
