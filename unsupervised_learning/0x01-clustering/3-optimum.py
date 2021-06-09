@@ -34,10 +34,10 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
     d_vars = [0]
     first_var = variance(X, results[0][0])
     while kmin < kmax:
+        kmin += 1
         centroid, clss = kmeans(X, kmin, iterations)
         var = variance(X, centroid)
         results.append((centroid, clss))
         d_vars.append(first_var - var)
-        kmin += 1
 
     return results, d_vars
