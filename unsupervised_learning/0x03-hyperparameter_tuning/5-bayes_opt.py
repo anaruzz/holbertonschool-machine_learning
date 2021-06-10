@@ -25,6 +25,7 @@ class BayesianOptimization():
 
     def acquisition(self):
         """
+        class method that calculates the next best sample location
         Returns: X_next, EI
         """
         m_sample, sigma = self.gp.predict(self.X_s)
@@ -43,3 +44,29 @@ class BayesianOptimization():
 
         X_next = self.X_s[np.argmax(EI)]
         return X_next, EI
+
+    def optimize(self, iterations=100):
+        """
+        method that optimizes the black-box function
+        Returns X_opt, Y_opt
+        """
+        X = []
+        for _ in range(iterations):
+            X_opt, _ = self.acquisition()
+            if X_opt in X:
+                break
+            Y_opt = self.f(X_opt)
+            self.gp.update(X_opt, Y_opt)
+            X.append(X_opt)
+
+        if self.minimize is True:
+            indx = np.argmin(self.gp.Y)
+        else:
+            indx = np.argmax(self.gp.Y)
+
+        self.gp.X = self.gp.X[:-1]
+
+        X_opt = self.gp.X[indx]
+        Y_opt = self.gp.Y[indx]
+
+        return X_opt, Y_opt
