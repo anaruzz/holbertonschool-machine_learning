@@ -25,7 +25,6 @@ class BayesianOptimization():
 
     def acquisition(self):
         """
-        class method that calculates the next best sample location
         Returns: X_next, EI
         """
         m_sample, sigma = self.gp.predict(self.X_s)
