@@ -8,7 +8,7 @@ Encoder = __import__('9-transformer_encoder').Encoder
 Decoder = __import__('10-transformer_decoder').Decoder
 
 
-class Transformer(tf.keras.layers.Layer):
+class Transformer(tf.keras.Model):
     """
     Class methods
     """
@@ -35,10 +35,8 @@ class Transformer(tf.keras.layers.Layer):
                                drop_rate)
         self.linear = tf.keras.layers.Dense(target_vocab)
 
-    def call(self, x, encoder_output,
-             training,
-             look_ahead_mask,
-             padding_mask):
+    def call(self, inputs, target, training, encoder_mask,
+             look_ahead_mask, decoder_mask):
         """
         Returns:
             a tensor of shape (batch, target_seq_len, dm)
