@@ -8,7 +8,7 @@ Encoder = __import__('9-transformer_encoder').Encoder
 Decoder = __import__('10-transformer_decoder').Decoder
 
 
-class Transformer(tf.keras.Model):
+class Transformer(tf.keras.layers.Layer):
     """
     Class methods
     """
@@ -44,7 +44,15 @@ class Transformer(tf.keras.Model):
             a tensor of shape (batch, target_seq_len, dm)
             containing the decoder output
         """
-        enc_out = self.encoder(inputs, training, encoder_mask)
-        dec_out = self.decoder(target, enc_out, training, look_ahead_mask,
-                               decoder_mask)
-        return self.linear(dec_out)
+        enc_output = self.encoder(inputs,
+                                  training,
+                                  encoder_mask)
+
+        dec_output = self.decoder(target,
+                                  enc_output,
+                                  training,
+                                  look_ahead_mask,
+                                  decoder_mask)
+        output = self.linear(dec_output)
+
+        return output
