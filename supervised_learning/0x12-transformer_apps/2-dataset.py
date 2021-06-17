@@ -13,7 +13,7 @@ class Dataset:
     """
     def __init__(self):
         """
-        class constructor
+        Class constructor
         """
         self.data_train = tfds.load('ted_hrlr_translate/pt_to_en',
                                     split='train', as_supervised=True)
@@ -47,3 +47,13 @@ class Dataset:
         tok_en = [self.tokenizer_en.vocab_size]+self.tokenizer_en.encode(
             en.numpy())+[(self.tokenizer_en.vocab_size) + 1]
         return tok_pt, tok_en
+
+    def tf_encode(self, pt, en):
+        """
+        Method that acts as a tensorflow wrapper for the encode instance
+        method
+        """
+        p, e = tf.py_function(self.encode, [pt, en], [tf.int64, tf.int64])
+        p.set_shape([None]), e.set_shape([None])
+
+        return p, e
