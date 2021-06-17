@@ -38,3 +38,20 @@ class Dataset:
         tokeniz_en = tfds.deprecated.text.SubwordTextEncoder.build_from_corpus(
             eng, target_vocab_size=2**15)
         return tokeniz_pt, tokeniz_en
+
+    def encode(self, pt, en):
+        """
+        encodes a translation into tokens
+        Returns: pt_tokens, en_tokens
+        """
+        pt_a = self.tokenizer_pt.vocab_size
+        pt_b = self.tokenizer_pt.encode(pt.numpy())
+        pt_c = pt_a + 1
+        pt_tokens = [pt_a] + pt_b + [pt_c]
+
+        en_a = self.tokenizer_en.vocab_size
+        en_b = self.tokenizer_en.encode(pt.numpy())
+        en_c = en_a + 1
+        en_tokens = [en_a] + en_b + [en_c]
+
+        return pt_tokens, en_tokens
