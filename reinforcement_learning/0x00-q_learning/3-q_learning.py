@@ -4,17 +4,7 @@ Script that performs Q-learning
 """
 import gym
 import numpy as np
-# epsilon_greedy = __import__('2-epsilon_greedy').epsilon_greedy
-
-def epsilon_greedy(Q, state, epsilon):
-    """
-    Returns: the next action indexf
-    """
-    n = np.random.uniform(0, 1)
-    if n < epsilon:
-        return np.argmax(Q[state, :])
-    else:
-        return np.random.randint(Q.shape[1])
+epsilon_greedy = __import__('2-epsilon_greedy').epsilon_greedy
 
 def train(env, Q, episodes=5000, max_steps=100,
           alpha=0.1, gamma=0.99, epsilon=1,
