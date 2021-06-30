@@ -9,7 +9,7 @@ def q_init(env):
     """
     Returns: the Q-table
     """
-    action_space_size = env.action_space.n
-    observation_size = env.observation_space.n
-    table = np.zeros((observation_size, action_space_size))
+    actions_number = env.action_space.n
+    states_number = env.observation_space.n
+    table = np.zeros((states_number, actions_number))
     return table
