@@ -26,6 +26,7 @@ def play(env, policy, max_steps, first):
             break
     return ep_rewards, states
 
+
 def monte_carlo(env, V, policy, episodes=5000, max_steps=100,
                 alpha=0.1, gamma=.99, first=False):
     """
