@@ -20,7 +20,7 @@ def availableShips(passengerCount):
         for ship in content:
             s = ship["passengers"]
             s = s.replace(',', '')
-            if ( s.isnumeric() and int(s) >= passengerCount):
+            if (s.isnumeric() and int(s) >= passengerCount):
                 ships.append(ship["name"])
 
         url = json["next"]
