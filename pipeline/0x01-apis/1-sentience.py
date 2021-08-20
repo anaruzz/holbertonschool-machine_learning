@@ -26,11 +26,6 @@ def sentientPlanets():
         url = json["next"]
         if (url is None):
             break
-<<<<<<< HEAD
-
-=======
-            
->>>>>>> 2ee73de7a2c2e35dc2fd3b18dd31f639fcc1cec4
         req = requests.get(json["next"])
         json = req.json()
     return planets
