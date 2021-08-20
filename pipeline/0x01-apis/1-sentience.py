@@ -18,17 +18,15 @@ def sentientPlanets():
     while req.status_code == 200:
         content = json["results"]
         for specie in content:
-            if (specie["designation"] == "sentient" or specie['classification'] == 'sentient'):
-                home_url = specie["homeworld"]
-                if (home_url):
-                    home_req = requests.get(home_url)
-                    home_json = home_req.json()
-                    planets.append(home_json["name"])
+            home_url = specie["homeworld"]
+            if (home_url):
+                home_json = requests.get(home_url).json()
+                planets.append(home_json["name"])
 
         url = json["next"]
-        if (url is not None):
-            req = requests.get(url)
-            json = req.json()
-        else:
+        if (url is None):
             break
+            
+        req = requests.get(json["next"])
+        json = req.json()
     return planets
