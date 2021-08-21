@@ -1,32 +1,41 @@
 #!/usr/bin/env python3
 """
-A script that prints the location of a specific user from the github API
+A script that prints:
+the Name of the launch
+The date (in local time)
+The rocket name
+The name (with the locality) of the launchpad
 """
 import requests
 
 
-def sentientPlanets():
+if __name__ == "__main__":
     """
     returns: the Name of the launch
              The date (in local time)
              The rocket name
              The name (with the locality) of the launchpad
     """
-    url = "https://swapi-api.hbtn.io/api/species"
-    req = requests.get(url)
-    json = req.json()
-    planets = []
-    while req.status_code == 200:
-        content = json["results"]
-        for specie in content:
-            home_url = specie["homeworld"]
-            if (home_url):
-                home_json = requests.get(home_url).json()
-                planets.append(home_json["name"])
+    url = "https://api.spacexdata.com/v4/"
+    req1 = requests.get(url + "launches/upcoming")
+    data = req1.json()
+    data.sort(key=lambda json: json['date_unix'])
+    data = data[0]
 
-        url = json["next"]
-        if (url is None):
-            break
-        req = requests.get(json["next"])
-        json = req.json()
-    return planets
+    v_name = data["name"]
+    v_localtime = data["date_local"]
+
+    req2 = requests.get(url + "rockets/" + data["rocket"])
+    rock_data = req2.json()
+    v_rock_name = rock_data['name']
+
+    req3 = requests.get(url + "launchpads/" + data["launchpad"])
+    launch_data = req3.json()
+    v_launch_name = launch_data['name']
+    v_lauch_local = launch_data['locality']
+
+    print("{} ({}) {} - {} ({})".format(v_name,
+                                        v_localtime,
+                                        v_rock_name,
+                                        v_launch_name,
+                                        v_lauch_local))
