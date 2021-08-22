@@ -2,25 +2,24 @@
 """
 A script that prints the location of a specific user from github API
 """
-
-import requests
 import sys
+import requests
 import time
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     """
-    Return location or Error or time
+    If the status code is 403, print Reset in X min
+    where X is the number of minutes from now and
+    the value of X-Ratelimit-Reset
     """
-    url = sys.argv[1]
-    req = requests.get(url)
-
-    if req.status_code == 404:
+    user = sys.argv[1]
+    response = requests.get(user)
+    corpus = response.json()
+    if response .status_code == 404:
         print("Not found")
-    elif req.status_code == 403:
-        limit = req.headers['X-Ratelimit-Reset']
+    elif response .status_code == 200:
+        print(corpus["location"])
+    elif response .status_code == 403:
+        limit = response.headers["X-Ratelimit-Reset"]
         x = (int(limit) - int(time.time())) / 60
-        print('Reset in {} min'.format(int(x)))
-    elif req.status_code == 200:
-        json = req.json()
-        print(json["location"])
+        print("Reset in {} min".format(int(x)))
