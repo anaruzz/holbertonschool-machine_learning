@@ -1,27 +1,20 @@
 #!/usr/bin/env python3
 """
-A script that prints the location of a specific user from github API
+Test file
 """
-
 import requests
-import sys
 import time
+import sys
 
 
 if __name__ == '__main__':
-    """
-    Return location or Error or time
-    """
-    url = sys.argv[1]
-    req = requests.get(url)
-
-    if req. status_code == 404:
-        print("Not found")
-    elif req. status_code == 200:
-        json = req.json()
-        print(json["location"])
-    elif req. status_code == 403:
-        limit = req.headers['X-Ratelimit-Reset']
+    r = requests.get(sys.argv[1])
+    data = r.json()
+    if r.status_code == 200:
+        print(data["location"])
+    elif r.status_code == 403:
+        limit = r.headers["X-Ratelimit-Reset"]
         x = (int(limit) - int(time.time())) / 60
-        print('Reset in {} min'.format(int(x)))
-    
+        print("Reset in {} min".format(int(x)))
+    else:
+        print("Not found")
